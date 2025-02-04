@@ -46,17 +46,23 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
-      }
-      else {
+      } else if (text == '%') {
+        // Handle modulo operation logic
+        _expression += '%';
+      }else {
         _expression += text;
       }
-      }
-    );
+    });
   }
 
   Widget _buildButton(String text) {
     return Expanded(
       child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero, // Removes the rounded corners
+        ),
+        ),
         onPressed: () => _onPressed(text),
         child: Text(text, style: TextStyle(fontSize: 24)),
       ),
@@ -125,6 +131,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           ),
           Row(
             children: <Widget>[
+              _buildButton('%'),  // Button for modulo
               _buildButton('='),
             ],
           ),
